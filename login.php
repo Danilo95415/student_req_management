@@ -31,4 +31,5 @@
 	  echo "no exist";
 	}
 
+	mysqli_close($conn);
 ?>
