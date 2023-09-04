@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header_title p-4">
+        <h1>Maestra</h1>
+    </div>
+    <div class="p-4">
+        <table class="table table-striped table-hover text-center">    
+            <thead>
+                <tr>
+                    <th scope="col" >número</th>
+                    <th scope="col">Nombre de usuario</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre de Departamento</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td >Roberto Guía</td>
+                    <td>
+                        1992.12.12
+                    </td>
+                    <td>Club de Matemáticas</td>
+                    <td >
+                        <p id="status_color"></p>
+                        <span>Recibida</span>
+                    </td>
+                    <td class="d-flex justify-content-center align-items-center">
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#edit">Editar</button>
+                        <button type="button" class="btn btn-outline-info" >Descargar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+      <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir solicitud</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="user_name" class="col-form-label">Nombre de usuario:</label>
+                  <input type="text" class="form-control" id="user_name" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="user_date" class="col-form-label">Fecha:</label>
+                    <input class="form-control" type="date" id="user_date" disabled />
+                </div>
+                <div class="mb-3">
+                    <label for="department_name" class="col-form-label">Nombre de Departamento:</label>
+                    <input type="text" class="form-control" id="department_name" disabled>
+                  </div>
+                <div class="mb-3">
+                  <label for="text" class="col-form-label">Texto:</label>
+                  <textarea class="form-control" id="user_text" disabled></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="col-form-label">Estado:</label>
+                    <select id="status" class="form-select" aria-label="Default select example">
+                        <option value="0" selected></option>
+                        <option value="1" >Recibida</option>
+                        <option value="2">Aceptada</option>
+                        <option value="3">Rechazada</option>
+                        <option value="4">En proceso</option>
+                        <option value="5">Autorizada</option>
+                        <option value="6">Negada</option>
+                    </select>
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerca</button>
+              <button type="button" class="btn btn-primary" id="add_request">Añadir solicitud</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/jquery-3.3.1.min.js" ></script>
+    <script src="./assets/js/index.js"></script>
+</body>
+</html>
