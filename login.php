@@ -21,6 +21,8 @@
 	  	// check user
 		$user = mysqli_fetch_assoc($result);
 		if ($user["password"] == $user_pass) {
+			session_start();
+			$_SESSION['user_id'] = $user['user_id'];
 			echo "success";
 		} else {
 			echo "password";
