@@ -14,7 +14,6 @@
 	}
 
 	$sql = "INSERT INTO requests (u_id, created_at, content, status) VALUES ($user_id, now(), '$content', 0)";
-	echo $sql; exit();
 
 	if (mysqli_query($conn, $sql)) {
 		echo "success";
