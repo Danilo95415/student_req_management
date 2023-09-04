@@ -4,7 +4,6 @@
     $user_pass = $_REQUEST["user_pass"];
     $user_type = $_REQUEST["user_type"];
     $department = $_REQUEST["department"];
-    if ($user_type == 2) $department = "";
 
     $servername = "localhost";
 	$username = "root";
@@ -21,7 +20,7 @@
 	$result = mysqli_query($conn, $sql);
 
 	if (mysqli_num_rows($result) > 0) {
-	  	echo "exist";
+	  echo "exist";
 	} else {
 		$sql = "INSERT INTO users (user_id, name, password, type, department) VALUES ('$user_id', '$user_fullname',md5('$user_pass'), $user_type, '$department')";
 

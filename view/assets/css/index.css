@@ -138,3 +138,10 @@
     width: 20px;
     height: 20px;
   }
+
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Set the desired width for the container */
+  }

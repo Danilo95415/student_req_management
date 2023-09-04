@@ -1,9 +1,8 @@
 <?php
-	$req_id = $_REQUEST["req_id"];
-	$content = $_REQUEST["content"];
-	$department = $_REQUEST["department"];
+	$user_id = $_REQUEST["user_id"];
+    $content = $_REQUEST["content"];
 
-	$servername = "localhost";
+    $servername = "localhost";
 	$username = "root";
 	$password = "";
 	$database ="std_req_manager";
@@ -14,7 +13,7 @@
   		die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = "UPDATE requests SET content='$content', department='$department', status=0 where id=$req_id";
+	$sql = "INSERT INTO requests (u_id, created_at, content, status) VALUES ($user_id, now(), '$content', 0)";
 
 	if (mysqli_query($conn, $sql)) {
 		echo "success";
@@ -22,5 +21,6 @@
 	  	echo "failure";
 	}
 
-	mysqli_close($conn);	
+	mysqli_close($conn);
+
 ?>

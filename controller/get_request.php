@@ -1,7 +1,6 @@
 <?php
+
 	$req_id = $_REQUEST["req_id"];
-	$content = $_REQUEST["content"];
-	$department = $_REQUEST["department"];
 
 	$servername = "localhost";
 	$username = "root";
@@ -14,13 +13,13 @@
   		die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = "UPDATE requests SET content='$content', department='$department', status=0 where id=$req_id";
+	$sql = "SELECT * FROM requests WHERE id=$req_id";
+	
+	$result = mysqli_query($conn, $sql);
+	$request = mysqli_fetch_assoc($result);
 
-	if (mysqli_query($conn, $sql)) {
-		echo "success";
-	} else {
-	  	echo "failure";
-	}
+	echo json_encode($request);
 
-	mysqli_close($conn);	
+	mysqli_close($conn);
+
 ?>

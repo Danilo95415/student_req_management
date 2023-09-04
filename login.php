@@ -21,16 +21,15 @@
 	  	// check user
 		$user = mysqli_fetch_assoc($result);
 		if ($user["password"] == $user_pass) {
-			$data["state"] = "success";
-			$data["user"] = $user;
+			session_start();
+			$_SESSION['user_id'] = $user['user_id'];
+			echo "success";
 		} else {
-			$data["state"] = "password incorrect";
+			echo "password";
 		}
 	} else {
-	  	$data["state"] = "no exist";
+	  echo "no exist";
 	}
-
-	echo json_encode($data);
 
 	mysqli_close($conn);
 ?>

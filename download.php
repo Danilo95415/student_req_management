@@ -17,7 +17,7 @@
 	// echo $sql; exit()
 	$result = mysqli_query($conn, $sql);
 	$request = mysqli_fetch_assoc($result);
-
+	echo json_encode($request);
 	$user_name = $request["user_name"];
 	$user_id = $request["user_id"];
 	$department = $request["department"];
@@ -25,14 +25,14 @@
 	$date = new DateTime($request["dt"]);
 	$date = $date->format('d-m-Y');
 
-	require_once(dirname(__FILE__).'/../TCPDF-main/tcpdf.php');
+	require_once(dirname(__FILE__).'/TCPDF-main/tcpdf.php');
 
 	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 	// Set document properties
 	$pdf->SetCreator('Your Name');
 	$pdf->SetAuthor('Your Author');
-	$pdf->SetTitle('Document');
+	$pdf->SetTitle('Your Title');
 	$pdf->SetSubject('Your Subject');
 	$pdf->SetKeywords('keyword1, keyword2, keyword3');
 

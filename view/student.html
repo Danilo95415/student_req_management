@@ -6,25 +6,41 @@
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/index.css">
     <title>Document</title>
+    <style type="text/css">
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px; /* Set the desired width for the container */
+        }
+        .status {
+            vertical-align: sub;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+    </style>
 </head>
-<body>
+<body onload="showAllData()">
     <div class="container">
         <div class="navbar pt-3">
-            <a class="navbar-brand">Navbar</a>
+            <a class="navbar-brand">Logo</a>
             <form class="d-flex" role="search">
-              <button class="btn btn-outline-success" >Logout</button>
+              <button class="btn btn-outline-success" onclick="handlelogout()">Cerrar sesión</button>
             </form>
           </div>
         <div class="header_title d-flex justify-content-between align-items-center py-4">
-            <h1>Student</h1>
-            <button type="button" class="btn btn-outline-info"  data-bs-toggle="modal" data-bs-target="#add_request" >Add Request</button>
+            <h1>Alumna</h1>
+            <button type="button" class="btn btn-outline-info"  data-bs-toggle="modal" data-bs-target="#add_request" >Añadir solicitud</button>
         </div>
         <div class="display ">
             <table class="table table-striped table-hover text-center  align-middle ">    
                 <thead class="table-info">
                     <tr>
                         <th scope="col">número</th>
-                        <th scope="col">Nombre de usuario</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Nombre de Departamento</th>
                         <th scope="col">Texto</th>
@@ -32,23 +48,7 @@
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Roberto Guía</td>
-                        <td>
-                            1992.12.12
-                        </td>
-                        <td>Club de Matemáticas</td>
-                        <td>soy estudiante de último año</td>
-                        <td>
-                            
-                        </td>
-                        <td class="d-flex justify-content-center align-items-center">
-                            <button type="button" id="handleEdit" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#delete">Delete</button>
-                        </td>
-                    </tr>
+                <tbody id="display_data">
                 </tbody>
             </table>
         </div>
@@ -61,23 +61,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="user_name" class="col-form-label">Nombre de usuario:</label>
                     <input type="text" class="form-control" id="user_name">
-                </div>
-                <div class="mb-3">
+                </div> -->
+                <!-- <div class="mb-3">
                     <label for="user_date" class="col-form-label">Fecha:</label>
                     <input class="form-control" type="date" id="user_date"/>
-                </div>
+                </div> -->
                 <div class="mb-3">
-                    <label for="department_name" class="col-form-label">Nombre de Departamento:</label>
-                    <input type="text" class="form-control" id="department_name">
+                    <label for="add_department_name" class="col-form-label">Nombre de Departamento:</label>
+                    <input type="text" class="form-control" id="add_department_name">
                     </div>
                 <div class="mb-3">
-                    <label for="text" class="col-form-label">Texto:</label>
-                    <textarea class="form-control" id="user_text"></textarea>
+                    <label for="add_user_text" class="col-form-label">Texto:</label>
+                    <textarea class="form-control" id="add_user_text" rows="10"></textarea>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="status" class="col-form-label">Estado:</label>
                     <select id="status" class="form-select" aria-label="Default select example">
                         <option value="0" selected></option>
@@ -88,10 +88,10 @@
                         <option value="5">Autorizada</option>
                         <option value="6">Negada</option>
                     </select>
-                    </div>
+                </div> -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerca</button>
+                <button type="button" class="btn btn-secondary btn_close_add_modal" data-bs-dismiss="modal" onclick="initAddModal()">Cerca</button>
                 <button class="btn btn-primary" type="button" id="addForm">Añadir solicitud</button>
             </div>
             </div>
@@ -99,50 +99,31 @@
         </div>
     
     </div>
-      <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir solicitud</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                  <label for="user_name" class="col-form-label">Nombre de usuario:</label>
-                  <input type="text" class="form-control" id="user_name" disabled>
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir solicitud</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="edit_department_name" class="col-form-label">Nombre de Departamento:</label>
+                  <input type="text" class="form-control" id="edit_department_name">
                 </div>
-                <div class="mb-3">
-                    <label for="user_date" class="col-form-label">Fecha:</label>
-                    <input class="form-control" type="date" id="user_date" disabled />
-                </div>
-                <div class="mb-3">
-                    <label for="department_name" class="col-form-label">Nombre de Departamento:</label>
-                    <input type="text" class="form-control" id="department_name" disabled>
-                  </div>
-                <div class="mb-3">
-                  <label for="text" class="col-form-label">Texto:</label>
-                  <textarea class="form-control" id="user_text"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="status" class="col-form-label">Estado:</label>
-                    <select id="status" class="form-select" aria-label="Default select example">
-                        <option value="0" selected></option>
-                        <option value="1" >Recibida</option>
-                        <option value="2">Aceptada</option>
-                        <option value="3">Rechazada</option>
-                        <option value="4">En proceso</option>
-                        <option value="5">Autorizada</option>
-                        <option value="6">Negada</option>
-                    </select>
-                  </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerca</button>
-              <button type="button" class="btn btn-primary" id="editForm">Añadir solicitud</button>
-            </div>
+              <div class="mb-3">
+                <label for="edit_user_text" class="col-form-label">Texto:</label>
+                <textarea class="form-control" id="edit_user_text" rows="10"></textarea>
+              </div>
+              <input type="hidden" name="req_id" id="req_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn_close_edit_modal" data-bs-dismiss="modal">Cerca</button>
+            <button type="button" class="btn btn-primary" id="handleEdit">Añadir solicitud</button>
           </div>
         </div>
       </div>
+    </div>
     <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabe3" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -154,14 +135,14 @@
                 Estas segura
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" >SÍ</button>
-                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary delete_confirm" >SÍ</button>
+                <button type="button"  class="btn btn-secondary btn_close_delete_modal" data-bs-dismiss="modal">No</button>
             </div>
             </div>
         </div>
     </div>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/jquery-3.3.1.min.js" ></script>
-    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/student.js"></script>
 </body>
 </html>

@@ -51,7 +51,7 @@
 
 	if ($result) {
 	    while ($req = mysqli_fetch_assoc($result)) {
-	        array_push($requests, $req);
+	        echo array_push($requests, $req);
 	    }
 	}
 
